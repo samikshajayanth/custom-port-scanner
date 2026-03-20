@@ -1,5 +1,34 @@
 import asyncio
 import time
+import socket
+
+def udp_scan_port(ip, port, timeout=1):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.settimeout(timeout)
+
+        sock.sendto(b"", (ip, port))
+
+        data, _ = sock.recvfrom(1024)
+        return (port, True, "OPEN")
+
+    except socket.timeout:
+        return (port, False, "OPEN|FILTERED")
+
+    except Exception:
+        return (port, False, "CLOSED")
+
+    finally:
+        sock.close()
+
+def udp_scan_range(ip, start_port, end_port):
+    results = []
+
+    for port in range(start_port, end_port + 1):
+        result = udp_scan_port(ip, port)
+        results.append(result)
+
+    return results
 
 async def scan_port(ip: str, port: int, timeout: float = 1.0, retries: int = 2):
     for attempt in range(retries):
