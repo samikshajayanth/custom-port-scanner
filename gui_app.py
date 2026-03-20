@@ -4,7 +4,7 @@ import socket
 import json
 
 # CHANGE THIS to your child laptop IP
-CHILD_IP = "192.168.1.105"
+CHILD_IP = "10.30.202.57"
 CHILD_PORT = 9999
 
 
