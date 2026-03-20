@@ -63,6 +63,13 @@ root.geometry("700x400")
 # INPUT FRAME
 frame = tk.Frame(root)
 frame.pack(pady=10)
+# Scan Type Dropdown
+scan_type = tk.StringVar(value="TCP")
+
+tk.Label(frame, text="Scan Type:").grid(row=3, column=0)
+scan_menu = ttk.Combobox(frame, textvariable=scan_type, state="readonly")
+scan_menu['values'] = ("TCP", "BANNER", "UDP")
+scan_menu.grid(row=3, column=1)
 
 tk.Label(frame, text="Target IP:").grid(row=0, column=0)
 ip_entry = tk.Entry(frame, width=20)
