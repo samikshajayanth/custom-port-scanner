@@ -9,7 +9,12 @@ CHILD_PORT = 9999
 
 
 def send_scan_command(target_ip, start_port, end_port):
-    command = {"target": target_ip, "start": start_port, "end": end_port}
+    command = {
+    "target": target_ip,
+    "start": start_port,
+    "end": end_port,
+    "type": scan_type.get()
+    }
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((CHILD_IP, CHILD_PORT))
         s.sendall(json.dumps(command).encode())
