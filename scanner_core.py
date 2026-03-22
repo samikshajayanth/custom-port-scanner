@@ -1,6 +1,7 @@
 import asyncio
 import time
 import socket
+<<<<<<< HEAD
 import struct
 import random
 import ipaddress
@@ -29,6 +30,36 @@ def expand_ip_range(ip_input: str):
 
 
 # ─── TCP CONNECT SCAN ─────────────────────────────────────────────────────────
+=======
+
+def udp_scan_port(ip, port, timeout=1):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.settimeout(timeout)
+
+        sock.sendto(b"", (ip, port))
+
+        data, _ = sock.recvfrom(1024)
+        return (port, True, "OPEN")
+
+    except socket.timeout:
+        return (port, False, "OPEN|FILTERED")
+
+    except Exception:
+        return (port, False, "CLOSED")
+
+    finally:
+        sock.close()
+
+def udp_scan_range(ip, start_port, end_port):
+    results = []
+
+    for port in range(start_port, end_port + 1):
+        result = udp_scan_port(ip, port)
+        results.append(result)
+
+    return results
+>>>>>>> 1e8b26e44cb3fc2f38fe5cbe32bf51662c409d11
 
 async def scan_port(ip: str, port: int, timeout: float = 1.0, retries: int = 2):
     for attempt in range(retries):

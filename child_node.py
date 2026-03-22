@@ -3,6 +3,7 @@ import json
 import asyncio
 from scanner_core import scan_range
 from banner_grabber import grab_banner
+from scanner_core import udp_scan_range
 
 HOST = "0.0.0.0"
 PORT = 9999

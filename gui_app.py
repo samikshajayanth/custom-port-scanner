@@ -7,9 +7,23 @@ from banner_grabber import grab_banner
 from service_map import get_service_name
 
 
+<<<<<<< HEAD
 def run_scan():
     ip_input  = ip_entry.get().strip()
     scan_type = scan_type_var.get()
+=======
+def send_scan_command(target_ip, start_port, end_port):
+    command = {
+    "target": target_ip,
+    "start": start_port,
+    "end": end_port,
+    "type": scan_type.get()
+    }
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((CHILD_IP, CHILD_PORT))
+        s.sendall(json.dumps(command).encode())
+        s.shutdown(socket.SHUT_WR)
+>>>>>>> 1e8b26e44cb3fc2f38fe5cbe32bf51662c409d11
 
     try:
         start = int(start_entry.get())
@@ -73,7 +87,20 @@ root.title("Custom Port Scanner")
 root.geometry("860x500")
 root.resizable(True, True)
 
+<<<<<<< HEAD
 # ─── INPUT FRAME ──────────────────────────────────────────────────────────────
+=======
+# INPUT FRAME
+frame = tk.Frame(root)
+frame.pack(pady=10)
+# Scan Type Dropdown
+scan_type = tk.StringVar(value="TCP")
+
+tk.Label(frame, text="Scan Type:").grid(row=3, column=0)
+scan_menu = ttk.Combobox(frame, textvariable=scan_type, state="readonly")
+scan_menu['values'] = ("TCP", "BANNER", "UDP")
+scan_menu.grid(row=3, column=1)
+>>>>>>> 1e8b26e44cb3fc2f38fe5cbe32bf51662c409d11
 
 frame = tk.LabelFrame(root, text="Scan Settings", padx=10, pady=8)
 frame.pack(fill="x", padx=10, pady=8)
