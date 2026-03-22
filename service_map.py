@@ -27,3 +27,8 @@ PORT_PROBES = {
     22:   b"",
     25:   b"",
 }
+def get_service_name(port: int) -> str:
+    return SERVICE_MAP.get(port, "Unknown")
+
+def get_probe(port: int) -> bytes:
+    return PORT_PROBES.get(port, b"")
